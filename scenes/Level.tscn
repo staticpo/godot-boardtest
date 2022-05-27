@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/BoardTile.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Level.gd" type="Script" id=2]
+
+[node name="Level" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="BoardTile" parent="." instance=ExtResource( 1 )]
+
+[node name="RedrawButton" type="Button" parent="."]
+margin_left = 129.0
+margin_top = 34.0
+margin_right = 186.0
+margin_bottom = 54.0
+text = "Redraw"
+
+[node name="BlinkButton" type="Button" parent="."]
+margin_left = 198.0
+margin_top = 34.0
+margin_right = 258.0
+margin_bottom = 54.0
+text = "Blinky"
+
+[node name="BlinkStopButton" type="Button" parent="."]
+margin_left = 265.0
+margin_top = 35.0
+margin_right = 360.0
+margin_bottom = 55.0
+text = "Stop Blinking"
+
+[node name="GridContainer" type="GridContainer" parent="."]
+margin_left = 75.0
+margin_top = 167.0
+margin_right = 115.0
+margin_bottom = 207.0
+columns = 3
+
+[connection signal="pressed" from="RedrawButton" to="." method="_on_Redraw_Button_pressed"]
+[connection signal="pressed" from="BlinkButton" to="." method="_on_BlinkButton_pressed"]
+[connection signal="pressed" from="BlinkStopButton" to="." method="_on_BlinkStopButton_pressed"]

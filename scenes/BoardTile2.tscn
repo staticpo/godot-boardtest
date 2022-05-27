@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.0396825, 0.444444, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 0.0295723, 0.0295723, 0.0295723, 1, 0.309524, 0.309524, 0.309524, 1, 0.753906, 0.13548, 0.13548, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+width = 240
+
+[node name="BoardTile2" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = SubResource( 2 )
+expand = true
