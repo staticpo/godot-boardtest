@@ -29,13 +29,6 @@ margin_right = 360.0
 margin_bottom = 55.0
 text = "Stop Blinking"
 
-[node name="GridContainer" type="GridContainer" parent="."]
-margin_left = 75.0
-margin_top = 167.0
-margin_right = 115.0
-margin_bottom = 207.0
-columns = 3
-
 [connection signal="pressed" from="RedrawButton" to="." method="_on_Redraw_Button_pressed"]
 [connection signal="pressed" from="BlinkButton" to="." method="_on_BlinkButton_pressed"]
 [connection signal="pressed" from="BlinkStopButton" to="." method="_on_BlinkStopButton_pressed"]

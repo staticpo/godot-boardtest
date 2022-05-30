@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tile5.png-dfd2de57899a905fa588cf609f936e8d.stex"
+path="res://.import/tile2-hover.png-4cb627e1c2245a2e9d51ae8b56ba5565.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/tile5.png"
-dest_files=[ "res://.import/tile5.png-dfd2de57899a905fa588cf609f936e8d.stex" ]
+source_file="res://assets/tile2-hover.png"
+dest_files=[ "res://.import/tile2-hover.png-4cb627e1c2245a2e9d51ae8b56ba5565.stex" ]
 
 [params]
 
@@ -31,5 +31,5 @@ process/invert_color=false
 process/normal_map_invert_y=false
 stream=false
 size_limit=0
-detect_3d=false
+detect_3d=true
 svg/scale=1.0
