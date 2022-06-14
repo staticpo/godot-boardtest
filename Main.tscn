@@ -1,22 +1,52 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/Level.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Board2.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Board.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Main.gd" type="Script" id=4]
-[ext_resource path="res://scenes/Unit.tscn" type="PackedScene" id=5]
+[ext_resource path="res://units/Unit.tscn" type="PackedScene" id=5]
+[ext_resource path="res://units/DraggableUnit.tscn" type="PackedScene" id=6]
+[ext_resource path="res://DragDestination.gd" type="Script" id=7]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 4 )
 
+[node name="DraggableUnit" parent="." instance=ExtResource( 6 )]
+margin_left = 221.0
+margin_top = 28.0
+margin_right = 285.0
+margin_bottom = 92.0
+
+[node name="DragDestination" type="Control" parent="."]
+margin_left = 473.0
+margin_top = 20.0
+margin_right = 599.0
+margin_bottom = 126.0
+mouse_filter = 1
+script = ExtResource( 7 )
+
+[node name="LZRect" type="ColorRect" parent="DragDestination"]
+margin_top = -1.0
+margin_right = 126.0
+margin_bottom = 107.0
+
 [node name="Level" parent="." instance=ExtResource( 1 )]
+visible = false
+scale = Vector2( 0.5, 0.5 )
 
-[node name="Board" parent="." instance=ExtResource( 3 )]
-position = Vector2( 163, 400 )
+[node name="Board1Inverted" parent="." instance=ExtResource( 3 )]
+visible = false
+position = Vector2( 907, 3 )
+scale = Vector2( -2, 2 )
+maxWidth = 4
+maxHeight = 4
+
+[node name="Board1Big" parent="." instance=ExtResource( 3 )]
+visible = false
+position = Vector2( 237, 13 )
 scale = Vector2( 2, 2 )
-
-[node name="Board2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 849, 400 )
-scale = Vector2( -3, 3 )
+maxWidth = 8
+maxHeight = 5
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -27,8 +57,60 @@ margin_right = 85.0
 margin_bottom = 124.0
 text = "Position: %s"
 
+[node name="MousePos" type="Label" parent="HUD"]
+margin_left = 6.0
+margin_top = 92.0
+margin_right = 132.0
+margin_bottom = 106.0
+text = "Mouse Position: %s"
+
+[node name="Label2" type="Label" parent="HUD"]
+margin_left = 7.0
+margin_top = 127.0
+margin_right = 49.0
+margin_bottom = 141.0
+text = "Label3"
+
+[node name="DangerButton" type="Button" parent="HUD"]
+anchor_right = 0.012
+anchor_bottom = 0.017
+margin_left = 85.0
+margin_top = 165.0
+margin_right = 174.712
+margin_bottom = 182.8
+text = "Danger"
+
+[node name="HoverButton" type="Button" parent="HUD"]
+anchor_right = 0.012
+anchor_bottom = 0.017
+margin_left = 198.0
+margin_top = 164.0
+margin_right = 287.712
+margin_bottom = 181.8
+text = "Hover"
+
+[node name="BonusButton" type="Button" parent="HUD"]
+anchor_right = 0.012
+anchor_bottom = 0.017
+margin_left = 314.0
+margin_top = 165.0
+margin_right = 403.712
+margin_bottom = 182.8
+text = "Bonus"
+
 [node name="Unit" parent="." instance=ExtResource( 5 )]
-position = Vector2( 511, 442 )
+position = Vector2( 24, 188 )
 scale = Vector2( 2, 2 )
 
+[node name="Board2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 13, 229 )
+scale = Vector2( 2, 2 )
+maxWidth = 10
+maxHeight = 4
+
 [connection signal="update_label" from="." to="." method="updateLabel"]
+[connection signal="update_label3" from="." to="." method="updateLabel3"]
+[connection signal="update_label_mouse_pos" from="." to="." method="updateLabelMousePosition"]
+[connection signal="pressed" from="HUD/DangerButton" to="." method="_on_DangerButton_pressed"]
+[connection signal="pressed" from="HUD/HoverButton" to="." method="_on_HoverButton_pressed"]
+[connection signal="pressed" from="HUD/BonusButton" to="." method="_on_BonusButton_pressed"]

@@ -3,8 +3,18 @@ extends Node
 #############################
 #	Actions and Board info
 #############################
-enum actionId { HOVER }
-enum boardEffectAreasId { SINGLE, CROSS, X, HORIZONTAL, VERTICAL, ALL_AROUND }
+enum actionId { NONE, HOVER, ATTACK, BONUS }
+enum actionTypeId { 
+	SINGLE,
+	CROSS,
+	X,
+	HORIZONTAL,
+	VERTICAL,
+	ALL_AROUND,
+	SLASH,
+	INVERTED_SLASH
+}
+
 enum relativePosId { CURRENT, UP, UP_RIGHT, RIGHT, DOWN_RIGHT, DOWN, DOWN_LEFT, LEFT, UP_LEFT }
 
 const relativeBoardPositions: Dictionary = {
@@ -20,35 +30,44 @@ const relativeBoardPositions: Dictionary = {
 }
 
 const boardEffectAreas : Dictionary = {
-	boardEffectAreasId.SINGLE: [
+	actionTypeId.SINGLE: [
 		relativeBoardPositions[relativePosId.CURRENT],
-		relativeBoardPositions[relativePosId.UP],
 	],
-	boardEffectAreasId.CROSS: [
+	actionTypeId.CROSS: [
 		relativeBoardPositions[relativePosId.CURRENT],
 		relativeBoardPositions[relativePosId.UP],
 		relativeBoardPositions[relativePosId.LEFT],
 		relativeBoardPositions[relativePosId.DOWN],
 		relativeBoardPositions[relativePosId.RIGHT],
 	],
-	boardEffectAreasId.X: [
+	actionTypeId.X: [
 		relativeBoardPositions[relativePosId.CURRENT],
 		relativeBoardPositions[relativePosId.UP_RIGHT],
 		relativeBoardPositions[relativePosId.UP_LEFT],
 		relativeBoardPositions[relativePosId.DOWN_RIGHT],
 		relativeBoardPositions[relativePosId.DOWN_LEFT],
 	],
-	boardEffectAreasId.HORIZONTAL: [
+	actionTypeId.SLASH: [
+		relativeBoardPositions[relativePosId.CURRENT],
+		relativeBoardPositions[relativePosId.UP_RIGHT],
+		relativeBoardPositions[relativePosId.DOWN_LEFT],
+	],
+	actionTypeId.INVERTED_SLASH: [
+		relativeBoardPositions[relativePosId.CURRENT],
+		relativeBoardPositions[relativePosId.UP_LEFT],
+		relativeBoardPositions[relativePosId.DOWN_RIGHT],
+	],
+	actionTypeId.HORIZONTAL: [
 		relativeBoardPositions[relativePosId.CURRENT],
 		relativeBoardPositions[relativePosId.LEFT],
 		relativeBoardPositions[relativePosId.RIGHT],
 	],
-	boardEffectAreasId.VERTICAL: [
+	actionTypeId.VERTICAL: [
 		relativeBoardPositions[relativePosId.CURRENT],
 		relativeBoardPositions[relativePosId.UP],
 		relativeBoardPositions[relativePosId.DOWN],
 	],
-	boardEffectAreasId.ALL_AROUND: [
+	actionTypeId.ALL_AROUND: [
 		relativeBoardPositions[relativePosId.CURRENT],
 		relativeBoardPositions[relativePosId.UP],
 		relativeBoardPositions[relativePosId.LEFT],
@@ -63,10 +82,25 @@ const boardEffectAreas : Dictionary = {
 
 var currentAction : Dictionary = {
 	'action': actionId.HOVER,
-	'type': boardEffectAreasId.VERTICAL,
-}
+	'type': actionTypeId.SINGLE,
+} setget , getCurrentAction
 
+#############################
+#	Units
+#############################
+## Contains info for each unit
+var unitsData 
 
+#############################
+#	Misc
+#############################
+enum teams { EIGHTIES, FUTURE }
+## Contains info for each unit
+var unitsData1
+
+#############################
+#	Setters and Getters
+#############################
 func getCurrentAction() -> Dictionary:
 	var response = {
 		'action': currentAction.action,
@@ -74,3 +108,23 @@ func getCurrentAction() -> Dictionary:
 		'params': boardEffectAreas[currentAction.type],
 	}
 	return response
+	
+func setCurrentAction(newActionId, newActionType) -> void:
+	currentAction = {
+		'action': newActionId,
+		'type': newActionType,
+	}
+	
+#############################
+#	Methods
+#############################
+
+func _ready():
+	var unitsFile = File.new()
+	unitsFile.open("res://data/units.json", File.READ)
+	var unitsJSON = JSON.parse(unitsFile.get_as_text())
+	unitsFile.close()
+	unitsData1 = unitsJSON.result
+	
+	print(unitsData1["cyborg"])
+	print(unitsData1["policeman"])

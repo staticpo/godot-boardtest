@@ -1,28 +1,45 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://textures/BoardTile3.tres" type="TileSet" id=2]
-[ext_resource path="res://scenes/Board.gd" type="Script" id=3]
+[ext_resource path="res://textures/boardtiles.tres" type="TileSet" id=1]
+[ext_resource path="res://scenes/Board2.gd" type="Script" id=2]
+[ext_resource path="res://scenes/Board2Drag.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 19, 19 )
 
 [node name="Board" type="Node2D"]
-script = ExtResource( 3 )
+script = ExtResource( 2 )
 maxWidth = 3
 maxHeight = 3
 
-[node name="TileMap" type="TileMap" parent="."]
-mode = 2
-tile_set = ExtResource( 2 )
-cell_size = Vector2( 40, 20 )
-cell_custom_transform = Transform2D( 40, 0, -19, 19, 0, 0 )
+[node name="TileMapAbove" type="TileMap" parent="."]
+z_index = -9
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 40, 40 )
+cell_custom_transform = Transform2D( 0, 0, 0, 0, 0, 0 )
 format = 1
-tile_data = PoolIntArray( 0, 4, 0, 1, 7, 0, 2, 4, 0, 3, 4, 0, 65536, 4, 0, 65537, 7, 0, 65538, 7, 0, 65539, 4, 0, 131072, 4, 0, 131073, 7, 0, 131074, 4, 0, 131075, 4, 0, 196608, 4, 0, 196609, 4, 0, 196610, 4, 0, 196611, 4, 0, 262144, 5, 0, 262145, 5, 0, 262146, 5, 0, 262147, 5, 0 )
+
+[node name="TileMap" type="TileMap" parent="."]
+z_index = -10
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 40, 40 )
+cell_custom_transform = Transform2D( 0, 0, 0, 0, 0, 0 )
+format = 1
+tile_data = PoolIntArray( 0, 4, 0, 1, 4, 0, 2, 4, 0, 65536, 4, 0, 65537, 4, 0, 65538, 4, 0, 131072, 4, 0, 131073, 4, 0, 131074, 4, 0 )
 
 [node name="Area2D" type="Area2D" parent="."]
 visible = false
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
-position = Vector2( -13.8439, 7.80962 )
-scale = Vector2( 0.628689, 0.627298 )
-polygon = PoolVector2Array( -65.4634, 78.4163, 22.0203, -10.8555, 211.303, -10.8555, 122.229, 78.4163 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 20, 20 )
+shape = SubResource( 1 )
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 3 )
 
 [connection signal="input_event" from="Area2D" to="." method="_on_Area2D_input_event"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_Area2D_mouse_exited"]
+[connection signal="gui_input" from="Control" to="." method="_on_Control_gui_input"]
+[connection signal="mouse_exited" from="Control" to="." method="_on_Control_mouse_exited"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/Parallelogram.gd" type="Script" id=1]
-[ext_resource path="res://scenes/BoardTile.gd" type="Script" id=2]
+[ext_resource path="res://scenes/TestingTiles.gd" type="Script" id=2]
 [ext_resource path="res://assets/purple_transparent.png" type="Texture" id=3]
 [ext_resource path="res://scenes/Polygon2D3.gd" type="Script" id=4]
 
@@ -37,7 +37,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.0313726, 0, 1, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[node name="BoardTile" type="Node2D"]
+[node name="TestingTiles" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="."]

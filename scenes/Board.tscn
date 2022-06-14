@@ -26,11 +26,10 @@ format = 1
 tile_data = PoolIntArray( 0, 5, 0, 1, 5, 0, 2, 5, 0, 65536, 5, 0, 65537, 5, 0, 65538, 5, 0, 131072, 5, 0, 131073, 5, 0, 131074, 5, 0 )
 
 [node name="Area2D" type="Area2D" parent="."]
+z_index = -1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
-position = Vector2( -13.8439, 7.80962 )
-scale = Vector2( 0.628689, 0.627298 )
-polygon = PoolVector2Array( -65.4634, 78.4163, 22.0203, -10.8555, 211.303, -10.8555, 122.229, 78.4163 )
+polygon = PoolVector2Array( -16, 18, 1, 1, 38, 1, 21, 18 )
 
 [connection signal="input_event" from="Area2D" to="." method="_on_Area2D_input_event"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_Area2D_mouse_exited"]

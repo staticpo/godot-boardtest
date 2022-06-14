@@ -10,7 +10,7 @@ func _draw():
 	var colour = PoolColorArray()
 	#points = [Vector2(150,100), Vector2(250,100), Vector2(200,200),Vector2(100,200)]
 	#colour = [color, Color(0, 255, 0, 1), color, Color(0, 255, 0, 1)]
-	colour = [Color(0, 0, 0, 0)]
+	#colour = [Color(0, 0, 0, 0)]
 	#draw_polygon(points,colour)
 	points = [Vector2(150,100), Vector2(250,100), Vector2(200,200),Vector2(100,200), Vector2(150,100)]
 	draw_polyline(points, color, 1, false)

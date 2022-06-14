@@ -9,12 +9,34 @@ const DANGER_TEXTURE_INDEX = 7
 const NORMAL_TEXTURE_INDEX = 5
 const EMPTY_TEXTURE_INDEX = -1
 
+## the vertices of a single cell from the tilemap
+const singleCellDimensions = PoolVector2Array([Vector2(-16, 18), Vector2(1, 1), Vector2(38, 1), Vector2(21, 18)])
 
-
-export(PackedScene) var unit = preload("res://scenes/Unit.tscn")
+export(PackedScene) var unit = preload("res://units/Unit.tscn")
 export(int) var horizontalOffset = 10
 
+func _ready():
+	# iterate all cells and set them with the 'normal' texture
+	for i in maxWidth:
+		for j in maxHeight:
+			$TileMap.set_cell(i, j, NORMAL_TEXTURE_INDEX)
+	
+	# Resize the collision polygon to detect mouse hover and exit, according to number of cells
+	# Position of these vertices:
+	#	   1 ---- 2
+	#	  /      /
+	#	 /      /
+	#	0 ---- 3
+	var vertex0 = Vector2((singleCellDimensions[0].x * maxWidth) - (maxWidth - 1), (singleCellDimensions[0].y * maxHeight) + (maxHeight - 1))
+	var vertex1 = singleCellDimensions[1]
+	var vertex2 = Vector2(singleCellDimensions[2].x * maxWidth, singleCellDimensions[2].y)
+	var vertex3 = Vector2((singleCellDimensions[3].x * maxWidth) - (maxWidth - 1), (singleCellDimensions[3].y * maxHeight) + (maxHeight - 1))
+	$Area2D/CollisionPolygon2D.polygon = PoolVector2Array([vertex0, vertex1, vertex2, vertex3])
+	
+
 func _on_Area2D_input_event(viewport, event, shape_idx):
+	get_parent().emit_signal('update_label_mouse_pos', String(get_global_mouse_position()))
+	
 	var mpos = $TileMap.world_to_map(get_local_mouse_position())
 	updateLabel(String(mpos))
 	
